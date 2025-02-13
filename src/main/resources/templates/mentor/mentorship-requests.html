@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .request-card {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        h1, h3 {
+            color: #333;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Flash Messages -->
+        <div th:if="${successfullAssigning}" class="message success">
+			<strong>Mentorship assigned to you! All the best :)</strong>
+		</div>
+        <div th:if="${error}" class="message error" th:text="${error}"></div>
+
+        <h1>Mentorship Requests</h1>
+
+        <!-- No Requests Found -->
+        <p th:if="${#lists.isEmpty(unattendedRequests)}">No mentorship requests available.</p>
+
+        <!-- Loop Through Requests -->
+        <div th:each="unattendedRequest : ${unattendedRequests}" class="request-card">
+            <h3 th:text="${unattendedRequest.startup.founder.name} + ' | ' + ${unattendedRequest.startup.name}"></h3>
+            <h2 th:text="${unattendedRequest.topic}"></h2>
+            <p th:text="${unattendedRequest.description}"></p>
+            <form method="post" th:action="@{/mentor/get-assigned-mentorship/{id}(id=${unattendedRequest.id})}">
+                <button type="submit" class="btn">Take Mentorship Duties</button>
+            </form>
+        </div>
+        
+    </div>
+	<a href="/" style="text-decoration: none; color: blue; font-size: 20px;">Back</a>
+</body>
+</html>
