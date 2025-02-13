@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Mentorship Session</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: lightgreen;
+            margin-top: 5px;
+        }
+
+        .generate-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .generate-link:hover {
+            background-color: #0056b3;
+        }
+
+        .instructions {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule a Mentorship Session</h1>
+        
+        <a href="https://meet.google.com/new" target="_blank" class="generate-link">Generate Meeting Link</a>
+        
+        <p class="instructions">Click the button above to generate a new Google Meet link. Copy the generated link and paste it into the form below.</p>
+        
+        <form th:action="@{/mentor/schedule-session/{mentorshipRequestId}(mentorshipRequestId=${mentorshipRequestId})}" method="post" th:object="${meetingLinkDTO}">
+            <label for="meetingLink">Meeting Link:</label>
+            <input type="text" id="meetingLink" name="meetingLink" th:field="*{meetingLink}" required>
+            <span class="error" th:if="${#fields.hasErrors('meetingLink')}" th:errors="*{meetingLink}"></span>
+            
+            <button type="submit" class="button">Schedule</button>
+        </form>
+        
+        <p class="error" th:if="${noMeeting}">You are not authorized to schedule this session.</p>
+        <p class="success" th:if="${successfullScheduling}">Session scheduled successfully! Meeting link sent.</p>
+        
+        <a href="/mentor/mentorship-dashboard" class="back-button">Back to Dashboard</a>
+    </div>
+</body>
+</html>
