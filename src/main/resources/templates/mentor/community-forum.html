@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mentor - Community Forum</title>
+    <link rel="stylesheet" th:href="@{/css/mentor-community.css}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Navbar */
+        .navbar {
+            background:#254d77;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links li {
+            display: inline;
+        }
+
+        .navbar .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .navbar .nav-links li a:hover {
+            color: #f39c12;
+        }
+
+        /* Page Heading */
+        h1 {
+            text-align: center;
+            color: cornsilk;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Forum Container */
+        .forum-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Question Card */
+        .question-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .question-card:hover {
+            transform: scale(1.02);
+        }
+
+        .question-header h2 {
+            color: #254d77;
+            margin-bottom: 5px;
+            font-size: 25px;
+        }
+
+        .question-meta {
+            font-size: 14px;
+            color: black;
+        }
+
+        /* Answers Section */
+        .answers-container {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-left: 4px solid #254d77;
+            border-radius: 8px;
+            backdrop-filter: blur(8px);
+        }
+
+        .answer {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px #254d77;
+            backdrop-filter: blur(6px);
+        }
+
+        .answer-meta {
+            font-size: 12px;
+            color: black;
+        }
+
+        /* Answer Form */
+        .answer-form {
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .answer-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            resize: vertical;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            color: #254d77 ;
+            font-size: 14px;
+        }
+
+        .answer-form textarea::placeholder {
+            color: #254d77 ;
+        }
+
+        .answer-form button {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .answer-form button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="logo">Med-Elevate</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/mentor/mentorship-dashboard">Dashboard</a></li>
+            <li><a href="/mentor/mentorship-requests">Mentorship requests</a></li>
+        </ul>
+    </div>
+
+    <h1>Med-Elevate Community Forum</h1>
+
+    <div class="forum-container">
+        <!-- Loop through each question -->
+        <div th:each="forum : ${forumList}" class="question-card">
+            
+            <!-- Question Details -->
+            <div class="question-header">
+                <h2 th:text="${forum.query}"></h2>
+                <p class="question-meta">
+                    Asked by: <span th:text="${forum.askedBy.name}"></span> 
+                    (<span th:text="${forum.askedBy.email}"></span>) | 
+                    <span th:text="${#dates.format(forum.askedOn, 'dd MMM yyyy HH:mm')}"></span>
+                </p>
+            </div>
+
+            <!-- Display Existing Answers -->
+            <div class="answers-container">
+                <h3>Answers:</h3>
+                <div th:each="answer : ${forum.answers}" class="answer">
+                    <p th:text="${answer.answer}" style="color: #254d77;"></p>
+                    <p class="answer-meta">
+                        Answered by: <span th:text="${answer.answeredBy.name}"></span> |
+                        <span th:text="${#dates.format(answer.answeredOn, 'dd MMM yyyy HH:mm')}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Answer Submission Form -->
+            <form th:action="@{'/mentor/post-community-answer/' + ${forum.id}}" method="post" th:object="${communityAnswerDTO}" class="answer-form">
+                <textarea th:field="*{answer}" placeholder="Write your answer here..." required></textarea>
+                <button type="submit" style="background-color: #254d77;">Post Answer</button>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>
