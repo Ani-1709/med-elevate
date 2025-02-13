@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Compliance Requests</title>
+    <style>
+        /* Background Image */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background:#254d77;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffd700;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 60px;
+            right: 30px;
+            background:#254d77;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .dropdown-menu a {
+            color: white;
+            padding: 8px 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 100px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+		.container h2{
+			color: #254d77;
+		}
+        /* Compliance Request Card */
+        .request-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: left;
+        }
+
+        .request-card h3 {
+            color:#254d77;
+            margin-bottom: 10px;
+        }
+
+        .request-card p {
+            color: #254d77;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .file-link {
+            display: inline-block;
+            color: cadetblue;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .file-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .btn-accept {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-reject {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* Form Input */
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="title">Med-Elevate</div>
+        <div class="nav-links">
+            <a href="/reviewer/dashboard">Dashboard</a>
+            <a href="#">Feedbacks</a>
+            <a href="/">Home</a>
+            <a href="#"></a>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <a href="#">Dashboard</a>
+        <a href="#">Requests</a>
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <!-- Compliance Requests -->
+    <div class="container">
+        <h2>Pending Compliance Requests</h2>
+
+        <div th:each="request : ${requests}" class="request-card">
+            <h3 th:text="${request.startup.founder.name} + ' | ' + ${request.startup.name}"></h3><br>
+            <p th:text="${request.founderComments}"></p><br>
+            <a th:href="@{/reviewer/{filename}(filename=${request.filename})}" target="_blank" class="file-link" th:text="${request.filename}"></a>
+
+            <!-- Accept Form -->
+            <form th:action="@{/reviewer/approve/{id}(id=${request.id})}" method="post">
+                <input type="text" name="reviewerComments" placeholder="Add approval comments..." required>
+				<br><br>
+                <button type="submit" class="btn btn-accept">Approve</button>
+            </form>
+
+            <!-- Reject Form -->
+            <form th:action="@{/reviewer/reject/{id}(id=${request.id})}" method="post">
+                <input type="text" name="reviewerComments" placeholder="Add rejection comments..." required>
+				<br><br>
+                <button type="submit" class="btn btn-reject">Reject</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
