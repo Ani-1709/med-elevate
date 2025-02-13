@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+            margin: 0;
+        }
+        .header-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 8px;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+            display: block;
+            margin-bottom: 5px;
+            text-align: left;
+        }
+        input, textarea, select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" 
+         alt="Startup Image" class="header-image">
+    
+    <div class="container">
+        <h2>Startup Registration Form</h2>
+		 <!-- Success Message -->
+		 <p th:if="${success}" class="success">Startup registered successfully!</p>
+        <form th:action="@{/startup/register-startup}" th:object="${startupDTO}" method="post">
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+            <label for="name">Startup Name:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
+
+            <label for="description">Description:</label>
+            <textarea id="description" th:field="*{description}" rows="4" required></textarea>
+            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error-message"></p>
+
+            <label for="industry">Industry:</label>
+            <input type="text" id="industry" th:field="*{industry}" required>
+            <p th:if="${#fields.hasErrors('industry')}" th:errors="*{industry}" class="error-message"></p>
+
+            <label for="contact">Contact Information:</label>
+            <input type="text" id="contact" th:field="*{contact}" required>
+            <p th:if="${#fields.hasErrors('contact')}" th:errors="*{contact}" class="error-message"></p>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" th:field="*{address}" required>
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-message"></p>
+
+            <label for="registrationNumber">Registration Number:</label>
+            <input type="text" id="registrationNumber" th:field="*{registrationNumber}" required>
+            <p th:if="${#fields.hasErrors('registrationNumber')}" th:errors="*{registrationNumber}" class="error-message"></p>
+
+            <label for="country">Country:</label>
+            <input type="text" id="country" th:field="*{country}" required>
+            <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="error-message"></p>
+            <button type="submit">Submit Startup</button>
+        </form>
+    </div>
+	<a href="/" style="text-decoration: none; color: blue; font-size: 20px;">Back</a>
+</body>
+</html>
