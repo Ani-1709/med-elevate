@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investor Home</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            padding-bottom: 60px;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #254d77;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .logout-btn i {
+            margin-right: 5px;
+        }
+
+        .logout-btn:hover {
+            background-color: darkred;
+        }
+        
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 80px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 80%;
+            max-width: 1000px;
+        }
+        
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+        }
+        
+        .card a {
+            text-decoration: none;
+            color: #254d77;
+            font-weight: bold;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ads-section {
+            margin: 30px auto;
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .ads-section h3 {
+            color: #254d77;
+        }
+
+        .ads-section p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .ads-section a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background-color: #254d77;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .ads-section a:hover {
+            background-color: #1d3a5f;
+        }
+        
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #254d77;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Med-Elevate</div>
+        <div class="menu">
+            <form th:action="@{/logout}" method="post" style="margin-left: 15px;">
+                <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </form>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <h2 style="text-align:center; width:100%;">Welcome, Investor!</h2>
+		<br>
+		<br>
+		<br>
+		<br>
+        <div class="card-container">
+            <div class="card"><a href="/investor/funding-requests"><i class="fas fa-file-alt"></i>View Funding Requests</a></div>
+            <div class="card"><a href="/investor/dashboard"><i class="fas fa-tachometer-alt"></i>Access Investor Dashboard</a></div>
+        </div>
+    </div>
+	<pre>
+		
+		
+		
+		
+		
+	</pre>
+    <div class="ads-section">
+		<h3>💰 Maximize Your Investment Opportunities!</h3>
+		<p>Join our exclusive investor network to discover high-potential startups and secure lucrative deals.</p>
+		<a href="#">Explore Opportunities</a>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Med-Elevate. All rights reserved.</p>
+    </footer>
+</body>
+</html>
