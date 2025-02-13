@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Investment Offers</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            color: #1E3A5F;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1E3A5F;
+            margin-top: 20px;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+
+        .offer-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fff;
+        }
+
+        .pending { border-left: 5px solid orange; }
+        .approved { border-left: 5px solid green; }
+        .declined { border-left: 5px solid red; }
+
+        .offer-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E3A5F;
+        }
+
+        .offer-detail {
+            margin: 5px 0;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn-approve {
+            background-color: green;
+            color: white;
+        }
+
+        .btn-decline {
+            background-color: red;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Investment Offers</h1>
+
+        <!-- Pending Offers -->
+        <h2 class="section-title">Pending Offers</h2>
+        <div th:if="${not #lists.isEmpty(pendingOffers)}">
+            <div th:each="offer : ${pendingOffers}" class="offer-card pending">
+                <div>
+                    <div class="offer-header" th:text="'Investor: ' + ${offer.investor.name}"></div>
+                    <div class="offer-detail"><strong>Amount Offered:</strong> <span th:text="${offer.amountOffered}"></span></div>
+                    <div class="offer-detail"><strong>Return Requested:</strong> <span th:text="${offer.returnRequest}"></span></div>
+                    <div class="offer-detail"><strong>Status:</strong> Pending</div>
+                </div>
+                <div class="btn-container">
+                    <form th:action="@{'/startup/approve-investment/' + ${offer.id}}" method="post">
+                        <button type="submit" class="btn btn-approve">Approve</button>
+                    </form>
+                    <form th:action="@{'/startup/decline-investment/' + ${offer.id}}" method="post">
+                        <button type="submit" class="btn btn-decline">Decline</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <p th:if="${#lists.isEmpty(pendingOffers)}">No pending offers.</p>
+
+        <!-- Approved Offers -->
+        <h2 class="section-title">Approved Offers</h2>
+        <div th:if="${not #lists.isEmpty(approvedOffers)}">
+            <div th:each="offer : ${approvedOffers}" class="offer-card approved">
+                <div>
+                    <div class="offer-header" th:text="'Investor: ' + ${offer.investor.name}"></div>
+                    <div class="offer-detail"><strong>Amount Offered:</strong> <span th:text="${offer.amountOffered}"></span></div>
+                    <div class="offer-detail"><strong>Return Requested:</strong> <span th:text="${offer.returnRequest}"></span></div>
+                    <div class="offer-detail"><strong>Status:</strong> Approved</div>
+                </div>
+            </div>
+        </div>
+        <p th:if="${#lists.isEmpty(approvedOffers)}">No approved offers.</p>
+
+        <!-- Declined Offers -->
+        <h2 class="section-title">Declined Offers</h2>
+        <div th:if="${not #lists.isEmpty(declinedOffers)}">
+            <div th:each="offer : ${declinedOffers}" class="offer-card declined">
+                <div>
+                    <div class="offer-header" th:text="'Investor: ' + ${offer.investor.name}"></div>
+                    <div class="offer-detail"><strong>Amount Offered:</strong> <span th:text="${offer.amountOffered}"></span></div>
+                    <div class="offer-detail"><strong>Return Requested:</strong> <span th:text="${offer.returnRequest}"></span></div>
+                    <div class="offer-detail"><strong>Status:</strong> Declined</div>
+                </div>
+            </div>
+        </div>
+        <p th:if="${#lists.isEmpty(declinedOffers)}">No declined offers.</p>
+
+        <!-- Back to Dashboard -->
+        <a href="/startup/dashboard" class="back-link">Back to Dashboard</a>
+    </div>
+</body>
+</html>
