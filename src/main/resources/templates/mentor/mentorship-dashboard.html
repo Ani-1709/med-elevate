@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorship Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background: #254d77;
+            padding: 15px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: 0 4px 6px #254d77;
+        }
+
+        .navbar h1 {
+            color: white;
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .navbar a {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background-color: #254d77;
+        }
+
+        .navbar a img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .navbar a:hover {
+            background-color: #254d77;
+        }
+
+		.container {
+		    max-width: 900px;
+		    margin: auto;
+		    background: #254d77; /* Reduced opacity */
+		    padding: 100px 20px 20px;
+		    border-radius: 12px;
+		    box-shadow: 0 0 15px #254d77;
+		    color: white; /* Ensures text remains readable */
+		}
+
+        .mentorship-section {
+            margin-bottom: 20px;
+        }
+
+        .mentorship-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0px 4px 10px #254d77;
+        }
+
+        .mentorship-card h3 {
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .mentorship-card h2 {
+            color:#254d77;
+            margin-bottom: 10px;
+        }
+
+        .mentorship-card p {
+            color: #333;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .no-assignments {
+            text-align: center;
+            color: #eee;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+		.container {
+		    max-width: 900px;
+		    margin: auto;
+		    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+		    padding: 100px 20px 20px;
+		    border-radius: 12px;
+		    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+		    backdrop-filter: blur(10px); /* Glass effect */
+		    -webkit-backdrop-filter: blur(10px); /* Safari support */
+		    color: white;
+		    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
+		}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Mentorship Dashboard</h1>
+        <a href="/" style="margin-right: 50px;">
+             Home
+        </a>
+    </div>
+    <div class="container">
+        <!-- Incomplete Assignments -->
+        <div class="mentorship-section" style="margin-top: 75px;">
+            <h1 style="color: black">🔥 Ongoing Mentorships</h1>
+            <div th:if="${#lists.isEmpty(incompleteAssignments)}" class="no-assignments">
+                <p>No ongoing mentorships available.</p>
+            </div>
+            <div th:each="incompleteAssignment : ${incompleteAssignments}" class="mentorship-card">
+                <h3 th:text="${incompleteAssignment.startup.founder.name} + ' | ' + ${incompleteAssignment.startup.name}"></h3>
+                <h2 th:text="${incompleteAssignment.topic}"></h2>
+                <p th:text="${incompleteAssignment.description}"></p>
+				<div th:if="${incompleteAssignment.meetingLink}">
+				        <a th:href="${incompleteAssignment.meetingLink}" target="_blank" class="button" style="background-color: #007bff;">Join Meeting</a>
+				    </div>
+				    
+				    <div th:if="${incompleteAssignment.meetingLink == null}">
+				        <a th:href="@{/mentor/schedule-session/{id}(id=${incompleteAssignment.id})}" class="button">Schedule Session</a>
+				    </div>
+            </div>
+        </div>
+
+        <!-- Completed Assignments -->
+        <div class="mentorship-section">
+            <h1 style="color: black">✅ Completed Mentorships</h1>
+            <div th:if="${#lists.isEmpty(completeAssignments)}" class="no-assignments">
+                <p>No completed mentorships yet.</p>
+            </div>
+            <div th:each="completeAssignment : ${completeAssignments}" class="mentorship-card">
+                <h3 th:text="${completeAssignment.startup.founder.name} + ' | ' + ${completeAssignment.startup.name}"></h3>
+                <h2 th:text="${completeAssignment.topic}"></h2>
+                <p th:text="${completeAssignment.description}"></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
