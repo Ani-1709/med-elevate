@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+       
+        nav {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: #254d77; 
+    z-index: 1000; 
+    padding: 5px 20px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+	color: white;
+}
+
+nav .menu {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+nav .menu a {
+    margin: 0 15px; 
+    color: white; 
+    text-decoration: none;
+}
+nav .menu a:hover{
+	text-decoration: none;
+	color: white;
+}
+nav .auth {
+    display: flex;
+    align-items: center;
+}
+
+nav .auth a {
+    margin-left: 15px; 
+    color: white; 
+    text-decoration: none;
+}
+
+body {
+    padding-top: 40px; 
+}
+    
+      
+        .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0); 
+}
+
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        
+        .query-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            height: 150px;
+            width: 800px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+        }
+
+        .query-container input {
+            padding: 10px;
+            font-size: 16px;
+            width: 60%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .query-container button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .query-container button:hover {
+            background-color: #555;
+        }
+
+        textarea {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+		input{
+			font-size: 16px;
+			            width: 100%;
+			            border: 1px solid #ccc;
+			            border-radius: 8px;
+			            margin-bottom: 15px;
+			            background-color: #f9f9f9;
+			            transition: border-color 0.3s, box-shadow 0.3s;
+		}
+        h2 {
+            text-align: center;
+        }
+
+       
+        footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 20px 0; 
+    text-align: center;
+    z-index: 1000;
+        }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+    margin: 0;
+    padding-bottom: 60px;
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #254d77; 
+    color: white;
+    padding: 20px 0; 
+    text-align: center;
+    z-index: 1000; 
+}
+
+footer .container1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer .container1 .left {
+    margin-left: 20px;
+}
+
+footer .container1 .right {
+    margin-right: 20px;
+	color: white;
+}
+
+        .call-to-action {
+            background-color: #f5f5f5;
+            padding: 50px 0;
+            text-align: center;
+        }
+
+        .call-to-action h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        textarea::placeholder {
+            color: #aaa;
+        }
+		input::placeholder{
+			color:#aaa;
+		}
+
+        nav .menu a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        .call-to-action {
+    background-color: rgba(245, 245, 245, 0);
+    padding: 50px 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.call-to-action h2 {
+    font-size: 2em;
+    margin-bottom: 0;
+}
+
+.call-to-action .btn-container {
+    text-align: center;
+    margin-top: 0; 
+}
+
+.call-to-action .btn {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.call-to-action .btn.primary {
+    background-color: #28a745;
+}
+
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+            align-items: center;
+        }
+
+        .hero {
+    background-color: rgba(245, 245, 245, 0); 
+    padding: 50px 0;
+    text-align: center;
+}
+
+.hero .container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.hero .btn {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+nav .menu:hover{
+    text-decoration: none;
+	
+}
+a{
+	text-decoration: none;
+}
+.hero .btn.primary {
+    background-color: #28a745;
+}
+
+        .btn-container .btn {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            
+            <h1>Med-Elevate</h1>
+        </div>
+        <div class="menu">
+            <a href="#home" >Home</a>
+            <a href="#features">Features</a>
+            <a href="#role">Role</a>
+            <a href="#testimonial">Testimonial</a>
+            <a href="#">Contact</a>
+        </div>
+        <div class="auth">
+            <a href="/login">Login</a>
+            <a href="/register">Signup</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h2>Empowering Healthcare Startups to Succeed</h2>
+            <p>Join a network of mentors, investors, and compliance experts to grow your startup.</p>
+            <a href="/register" class="btn primary">Get Started</a>
+            <a href="#features" class="btn">Explore Features</a>
+        </div>
+    </section>
+
+	<!-- Feature section -->
+	<h2 id="features">Why Join Us?</h2>
+	<div class="container">
+	    <div class="card-container">
+	        <div class="card">
+	            <h3>Comprehensive Startup Support</h3>
+	            <p>Get assistance with funding, mentorship, and compliance verification.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Expert Mentorship</h3>
+	            <p>Connect with experienced mentors to refine your business model and strategy.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Regulatory Compliance Assistance</h3>
+	            <p>Ensure your startup meets all legal requirements with compliance reviewers.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Investment Opportunities</h3>
+	            <p>Showcase your startup to investors actively looking for innovative ventures.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Community & Resources</h3>
+	            <p>Access forums and a knowledge library to learn from other founders.</p>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- Role section -->
+	<h2 id="role">Explore Your Role</h2>
+	<div class="container">
+	    <div class="card-container">
+	        <div class="card">
+	            <h3>Startup Founder</h3>
+	            <p>Submit registration and funding applications. Request mentorship and access valuable resources. Track compliance and funding status.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Compliance Reviewer</h3>
+	            <p>Verify document authenticity and regulatory compliance. Provide feedback and update compliance status. Generate compliance reports.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Mentor</h3>
+	            <p>View mentorship requests and review startup needs. Conduct mentorship sessions and share resources. Provide expert guidance to early-stage startups.</p>
+	        </div>
+	        <div class="card">
+	            <h3>Investor</h3>
+	            <p>Browse startup funding applications. Review startup profiles and request additional details. Approve or decline funding applications. Monitor investment performance and access reports.</p>
+	        </div>
+	    </div>
+	</div>
+
+    <!-- Testimonial Section -->
+    <div class="container" id="testimonial">
+        <div class="testimonial">
+            <h2>What Our Users Say</h2>
+			<br><br>
+            <p>"This platform has been a game-changer for our startup. The mentorship and funding opportunities are amazing!"</p>
+            <h4>- Jane Doe, Startup Founder</h4>
+        </div>
+    </div>
+
+    <!-- Call to action -->
+    <div class="container call-to-action">
+        <h2>Ready to Transform Your Startup Journey?</h2>
+        <div class="btn-container">
+            <a href="/register" class="btn primary">Sign Up Now</a>
+        </div>
+    </div>
+
+    <!-- Query box -->
+    <div class="container">
+        <form class="query-container" method="post" th:action="@{/submit-doubts}">
+            <textarea type="text" placeholder="Enter your query..." name="query"></textarea>
+			<input type="email" name="email" placeholder="Enter your email..." required>
+            <button>Submit Query</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container1">
+            <p class="left">&copy; 2025 Med Elevate. All rights reserved.</p>
+            <div class="right">
+                <a href="#" style="color: white;">Privacy Policy</a> | <a href="#" style="color: white;">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
