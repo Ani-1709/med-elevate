@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Forum</title>
+    <link rel="stylesheet" th:href="@{/css/mentor-community.css}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .navbar {
+            background:#254d77;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            backdrop-filter: blur(8px);
+        }
+
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar .nav-links li {
+            display: inline;
+        }
+
+        .navbar .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .navbar .nav-links li a:hover {
+            color: #f39c12;
+        }
+
+        h1 {
+            text-align: center;
+            color: cornsilk;
+            margin-top: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .forum-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .question:hover {
+            transform: scale(1.02);
+        }
+
+        .answer {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px #254d77;
+            backdrop-filter: blur(6px);
+            border-left: 4px solid #254d77;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Med-Elevate</div>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/startup/dashboard">Dashboard</a></li>
+			<li><a href="/startup/submit-query">Ask a question</a></li>
+        </ul>
+    </div>
+
+    <h1>Community Forum</h1>
+    <div class="forum-container">
+        <div th:each="question : ${forum}" class="question">
+            <h3 th:text="${question.query}"></h3>
+            <p th:text="${question.askedBy.name} +' | '+ ${question.askedBy.email} +' | '+${question.askedOn}"
+			style="color:darkgreen;font-weight: bold;"></p>
+            
+            <div th:each="answer : ${question.answers}" class="answer">
+                <p th:text="${answer.answer}"></p>
+                <p th:text="${answer.answeredBy.name}+' | '+${answer.answeredBy.email}+' | '+${answer.answeredOn}"
+				style="color:darkgreen;font-weight: bold;"></p>
+            </div>
+        </div>
+        
+        <div class="button-container">
+            <a th:href="@{/startup/submit-query}" class="btn">Post a Question</a>
+        </div>
+    </div>
+
+    <a href="/" style="color: blue; text-decoration: none; font-size: 20px;">Back to Home</a>
+</body>
+</html>
