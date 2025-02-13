@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Verification Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f2f2f2, #e0e0e0);
+            padding: 20px;
+            margin: 0;
+        }
+        .header-image {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        div {
+            background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+            backdrop-filter: blur(10px); /* Optional: Adds a blur effect for a frosted glass look */
+        }
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        label {
+            font-weight: bold;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        input, textarea, select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+        button {
+            width: 120px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:active {
+            background-color: #388e3c;
+        }
+        #errorMessage {
+            color: red;
+            display: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+	
+    <img src="https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds" alt="Startup Image" class="header-image">
+    <div>
+        <h2>Compliance Verification Request</h2>
+		<div th:if="${success}" class="text-success" style="color: #28a745; font-weight: bold; margin-bottom: 10px;">
+						<strong>File sent successfully for verification</strong>
+			    </div>
+		
+		<form id="complianceForm" class="form-container" th:action="@{/startup/submit-compliance-verification-form}" 
+		      method="post" enctype="multipart/form-data">
+
+		    
+		    <label for="file">Upload Document:</label>
+		    <input type="file" id="file" name="file" required>
+
+			<label for="comments">Additional comments:</label>
+			<input type="text" id="comments" name="founderComments" required>
+		    
+		    <button type="submit">Submit</button>
+		</form>
+    </div>
+	<a href="/" style="text-decoration: none; color: darkblue;font-size: 22px;">Back</a>
+</body>
+</html>
