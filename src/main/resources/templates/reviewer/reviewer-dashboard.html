@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviewer Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            background: #254d77;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .navbar .title {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            flex: 1;
+            padding: 80px 40px;
+            margin: 20px auto;
+			margin-top: 80px;
+            max-width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            background: transparent;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #254d77;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px solid #254d77;
+            padding-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .dual-sections {
+            display: flex;
+            gap: 20px;
+        }
+
+        .section {
+            opacity: 0.8;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cards-container {
+            opacity: 0.9;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            opacity: 0.9;
+            border: 1px solid #51e5a7;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .card.approved:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            background-color: #4ce49f;
+        }
+
+        .card.rejected:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            background-color: #e74c3c;
+			
+        }
+
+        .card h5 {
+            font-size: 1.2rem;
+            color: #4b637b;
+            margin-bottom: 0;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: black;
+        }
+		
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="title">Med-Elevate</div>
+        <div class="nav-links">
+            <a href="/reviewer/compliance-verification-applications">Requests</a>
+            <a href="/">Home</a>
+            <a href="#">Feedback</a>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="content">
+        <div class="dual-sections">
+            <!-- Approved Documents Section -->
+            <div class="section">
+                <h2 class="section-title"><span>Approved Documents</span><span>✅</span></h2>
+                <div class="cards-container">
+                    <div th:each="doc : ${approvedDocuments}" class="card approved">
+                        <div>
+                            <h5 th:text="'Document: ' + ${doc.filename}"></h5>
+                            <p>Status: Approved</p>
+                            <p>Reviewed By: <span th:text="${doc.reviewedBy.name}"></span></p>
+                            <a th:href="@{/reviewer/{filename}(filename=${doc.filename})}" target="_blank" class="btn btn-primary">📂 View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejected Documents Section -->
+            <div class="section">
+                <h2 class="section-title"><span>Rejected Documents</span><span>❌</span></h2>
+                <div class="cards-container">
+                    <div th:each="doc : ${rejectedDocuments}" class="card rejected">
+                        <div>
+                            <h5 th:text="'Document: ' + ${doc.filename}"></h5>
+                            <p>Status: Rejected</p>
+                            <p>Reviewed By: <span th:text="${doc.reviewedBy.name}"></span></p>
+                            <p>Reason: <span th:text="${doc.reviewerComments}"></span></p>
+                            <a th:href="@{/reviewer/{filename}(filename=${doc.filename})}" target="_blank" class="btn btn-primary">📂 View</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
