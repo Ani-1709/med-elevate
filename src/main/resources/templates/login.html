@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background:  rgba(70, 194, 239, 0.5); 
+            color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            font-size: 16px;
+        }
+
+        .login-container button {
+            width: 120px;
+            padding: 10px;
+            border: none;
+            border-radius: 17px;
+            background-color: #4CAF50;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+        }
+		.text-danger {
+			color: red;
+		}
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 20px;
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2 text-color="black">Login</h2>
+        <form id="loginForm" method="post" th:action="@{/login}">
+            <input type="text" id="username" name="username" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+			<br>
+            <button type="submit">Login</button>
+			<br>
+            <p>Don't have an account? <a href="/register" style="color: darkgreen">Sign Up</a></p>
+        </form>
+		<div th:if="${param.error}">
+		               <p class="text-danger">Invalid email or password.</p>
+		           </div>
+		           <div th:if="${param.logout}">
+		               <p class="text-success">You have been logged out.</p>
+		           </div>
+    </div>
+	
+</body>
+</html>
