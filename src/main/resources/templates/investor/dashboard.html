@@ -96,7 +96,7 @@
         .card.pending:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            background-color: #b0728e;
+            background-color: lightyellow;
         }
         .card h5 {
             font-size: 1.2rem;
@@ -142,7 +142,7 @@
                     <div th:if="${not #lists.isEmpty(pendingOffers)}">
                         <div th:each="offer : ${pendingOffers}" class="card pending">
                             <h5 th:text="'Startup: ' + ${offer.fundingRequest.startup.name}"></h5>
-                            <p><strong>Requested Amount:</strong> <span th:text="${offer.amountOffered}"></span></p>
+                            <p><strong>Offered Amount:</strong> <span th:text="${offer.amountOffered}"></span></p>
 							<p><strong>In return:</strong> <span th:text="${offer.returnRequest}"></span></p>
                         </div>
                     </div>

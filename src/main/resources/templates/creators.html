@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet the Creators</title>
+    <style>
+        /* Background Styling */
+        body {
+            background: url('https://imageio.forbes.com/specials-images/imageserve/63eba6cd7956dd3503caa564/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Glassmorphism Card */
+        .card-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: #254d77;
+        }
+
+        /* Creator Image */
+        .creator-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        /* LinkedIn Icon */
+        .linkedin {
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .linkedin img {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* Back to Home Button */
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background: #254d77;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        
+
+    </style>
+</head>
+<body>
+
+    <h1 style="color: #254d77; margin-bottom:50px;">Meet the Creators</h1>
+    
+    <div class="card-container">
+        <!-- Creator Card 1 -->
+        <div class="card">
+            <img src="images/Partha.png" alt="Creator 1" class="creator-img">
+            <h2>Partha Sarathi Panda</h2>
+            <p>Cuttack, Odisha</p>
+            
+            <a href="https://linkedin.com" target="_blank" class="linkedin">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+            </a>
+        </div>
+
+        <!-- Creator Card 2 -->
+        <div class="card">
+            <img src="images/himansu.png" alt="Creator 2" class="creator-img">
+            <h2>Himansu Muduli</h2>
+            <p>Sukinda, Odisha</p>
+            
+            <a href="https://linkedin.com" target="_blank" class="linkedin">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+            </a>
+        </div>
+
+        <!-- Creator Card 3 -->
+        <div class="card">
+            <img src="images/Animesh.jpg" alt="Creator 3" class="creator-img">
+            <h2>Animesh Kumar</h2>
+            <p>Ranchi, Jharkhand</p>
+           
+            <a href="https://linkedin.com" target="_blank" class="linkedin">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn">
+            </a>
+        </div>
+    </div>
+
+    <!-- Back to Home Button -->
+    <button class="back-button" onclick="window.location.href='/'">Back to Home</button>
+
+</body>
+</html>

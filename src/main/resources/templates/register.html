@@ -103,7 +103,7 @@
 			
 			<label for="password">Confirm Password:</label>
 			<input type="password" id="confirmPassword" placeholder="Enter password" th:field="*{confirmPassword}">
-			<p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confrimPassword}" class="text-danger"></p>
+			<p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="text-danger"></p>
 
             <label for="role">Role:</label>
             <select id="role" th:field="*{role}">

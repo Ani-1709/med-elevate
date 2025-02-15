@@ -56,4 +56,8 @@ public class ContentController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/creators")
+	public String getToKnowCreators() {
+		return "creators";
+	}
 }
